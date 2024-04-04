@@ -20,6 +20,22 @@ app.get("/", function (req, res) {
 
 app.get("/api/:word?", function(req, res){
   console.log(req.params.word)
+  input = req.params.word
+
+  if (!input){
+    date = new Date(Date.now())
+    console.log("date:" + date)
+  } else if (!isNaN(input)){
+    date = new Date(Number(input))
+  } else {
+    date = new Date(input)
+  } 
+  console.log(date)
+  if (date.toString() == 'Invalid Date'){
+      res.json({error: 'Invalid Date'})
+  } else {
+    res.json({unix:date.getTime() , utc:date.toUTCString() })
+  }
 }) 
 
 // your first API endpoint... 
